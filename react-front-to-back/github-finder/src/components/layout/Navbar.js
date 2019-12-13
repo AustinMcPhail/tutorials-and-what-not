@@ -1,27 +1,25 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import PropTypes from 'prop-types';
 
-class Navbar extends Component {
-  static defaultProps = {
-    title: 'Github Finder',
-    icon: ['fab', 'github']
-  };
+const Navbar = ({ icon, title }) => {
+  return (
+    <div className='navbar bg-primary'>
+      <h1>
+        <FontAwesomeIcon icon={icon} /> {title}
+      </h1>
+    </div>
+  );
+};
 
-  static propTypes = {
-    title: PropTypes.string.isRequired,
-    icon: PropTypes.arrayOf(PropTypes.string).isRequired
-  };
+Navbar.defaultProps = {
+  title: 'Github Finder',
+  icon: ['fab', 'github']
+};
 
-  render() {
-    return (
-      <div className='navbar bg-primary'>
-        <h1>
-          <FontAwesomeIcon icon={this.props.icon} /> {this.props.title}
-        </h1>
-      </div>
-    );
-  }
-}
+Navbar.propTypes = {
+  title: PropTypes.string.isRequired,
+  icon: PropTypes.arrayOf(PropTypes.string).isRequired
+};
 
 export default Navbar;
