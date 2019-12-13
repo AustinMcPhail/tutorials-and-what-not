@@ -1,13 +1,10 @@
 import React from 'react';
 import UserItem from './UserItem';
+import { Spinner } from '../layout/Spinner';
 
 const Users = ({ users, loading }) => {
   if (loading) {
-    return (
-      <div className='text-center'>
-        <h2>Loading...</h2>
-      </div>
-    );
+    return <Spinner />;
   } else {
     return (
       <div style={userStyle}>
