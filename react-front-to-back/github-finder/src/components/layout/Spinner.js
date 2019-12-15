@@ -9,3 +9,5 @@ export const Spinner = () => (
       style={{ width: '200px', margin: 'auto', display: 'block' }}></img>
   </Fragment>
 );
+
+export default Spinner;
