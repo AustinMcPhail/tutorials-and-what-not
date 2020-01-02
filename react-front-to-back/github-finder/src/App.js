@@ -8,6 +8,7 @@ import Alert from './components/layout/Alert';
 import About from './components/pages/About';
 import AlertState from './contexts/alert/AlertState';
 import Home from './components/pages/Home';
+import NotFound from './components/pages/404';
 
 const App = () => {
   return (
@@ -26,6 +27,7 @@ const App = () => {
                   path='/user/:login'
                   render={props => <User {...props} />}
                 />
+                <Route component={NotFound} />
               </Switch>
             </div>
           </div>
