@@ -412,3 +412,21 @@ table th {
     justify-content: center;
   }
 }
+
+.contact-enter {
+  opacity: 0;
+  transform: scale(0.9);
+}
+.contact-enter-active {
+  opacity: 1;
+  transform: translateX(0);
+  transition: opacity 500ms, transform 500ms;
+}
+.contact-exit {
+  opacity: 1;
+}
+.contact-exit-active {
+  opacity: 0;
+  transform: scale(0.9);
+  transition: opacity 500ms, transform 500ms;
+}

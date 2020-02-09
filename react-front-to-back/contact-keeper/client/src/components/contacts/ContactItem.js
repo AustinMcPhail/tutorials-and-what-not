@@ -4,8 +4,15 @@ import PropTypes from 'prop-types'
 
 const ContactItem = ({ contact }) => {
     const contactContext = useContext(ContactContext);
+    const { deleteContact, setCurrent, clearCurrent } = contactContext;
     const { id, name, email, phone, type } = contact;
-
+    const onDelete = e => {
+        deleteContact(id);
+        clearCurrent();
+    }
+    const onEdit = e => {
+        setCurrent(contact)
+    }
     return (
         <div className="card bg-white">
             <h3 className="text-primary text-left">
@@ -26,8 +33,8 @@ const ContactItem = ({ contact }) => {
                 )}
             </ul>
             <p>
-                <button className="btn btn-dark btn-sm">Edit</button>
-                <button style={{ float: 'right' }} className="btn btn-danger btn-sm">Delete</button>
+                <button className="btn btn-dark btn-sm" onClick={onEdit}>Edit</button>
+                <button style={{ float: 'right' }} className="btn btn-danger btn-sm" onClick={onDelete}>Delete</button>
             </p>
         </div>
     )
