@@ -21,6 +21,6 @@ app.use('/api/users', require('./routes/users'));
 app.use('/api/contacts', require('./routes/contacts'));
 // --------------------
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 4000;
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));
