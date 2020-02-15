@@ -1,6 +1,6 @@
 const express = require('express');
-const auth = require('../middleware/auth');
 const { check, validationResult } = require('express-validator');
+const auth = require('../middleware/auth');
 
 const Contact = require('../models/Contact');
 
@@ -23,15 +23,19 @@ router.get('/', auth, async (req, res) => {
 // @desc    Add new contact
 // @access  Public
 router.post('/', [auth, [
-  check('name', 'Name is required').notEmpty()
+  check('name', 'Name is required').notEmpty(),
 ]], async (req, res) => {
   const errors = validationResult(req);
   if (!errors.isEmpty()) {
     return res.status(400).json({ errors: errors.array() });
   }
-  const { name, email, phone, type } = req.body;
+  const {
+    name, email, phone, type,
+  } = req.body;
   try {
-    const newContact = new Contact({ user: req.user.id, name, email, phone, type })
+    const newContact = new Contact({
+      user: req.user.id, name, email, phone, type,
+    });
     const contact = await newContact.save();
 
     res.json(contact);
@@ -45,7 +49,9 @@ router.post('/', [auth, [
 // @desc    Update a contact
 // @access  Public
 router.put('/:contactId', auth, async (req, res) => {
-  const { name, email, phone, type } = req.body;
+  const {
+    name, email, phone, type,
+  } = req.body;
   try {
     let contact = await Contact.findById(req.params.contactId);
     if (!contact) {
@@ -53,7 +59,7 @@ router.put('/:contactId', auth, async (req, res) => {
     }
 
     if (contact.user.toString() !== req.user.id) {
-      return res.status(401).json({ msg: 'Access denied' })
+      return res.status(401).json({ msg: 'Access denied' });
     }
 
     const contactFields = {};
@@ -64,8 +70,8 @@ router.put('/:contactId', auth, async (req, res) => {
 
     contact = await Contact.findByIdAndUpdate(req.params.contactId,
       { $set: contactFields },
-      { new: true} );
-    
+      { new: true });
+
     res.json(contact);
   } catch (err) {
     console.error(err.message);
@@ -82,7 +88,7 @@ router.delete('/:contactId', auth, async (req, res) => {
     if (req.user.id !== contact.user.toString()) {
       return res.status(401).json({ msg: 'Access denied' });
     }
-    await contact.delete()
+    await contact.delete();
     res.status(204).send();
   } catch (err) {
     console.error(err.message);
