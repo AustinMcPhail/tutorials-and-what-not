@@ -47,7 +47,7 @@ router.post('/', [
       },
     };
 
-    const jwtSecret;
+    let jwtSecret;
     if (process.env.NODE_ENV === 'production') {
       jwtSecret = process.env.JWT_SECRET;
     } else {
