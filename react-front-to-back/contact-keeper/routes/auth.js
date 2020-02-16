@@ -47,7 +47,14 @@ router.post('/', [
       },
     };
 
-    jwt.sign(payload, process.env.JWT_SECRET || config.get('jwtSecret'), {
+    const jwtSecret;
+    if (process.env.NODE_ENV === 'production') {
+      jwtSecret = process.env.JWT_SECRET;
+    } else {
+      jwtSecret = config.get('jwtSecret');
+    }
+
+    jwt.sign(payload, jwtSecret, {
       expiresIn: 360000,
     }, (err, token) => {
       if (err) throw err;
