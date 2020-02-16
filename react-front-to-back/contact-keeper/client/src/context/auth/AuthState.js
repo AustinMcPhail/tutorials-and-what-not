@@ -28,20 +28,14 @@ const AuthState = props => {
 
     // Load User ------
     const loadUser = async () => {
-        console.log('LOADING USER');
-        console.log('CHECKING TOKEN', localStorage.getItem('token'));
         if (localStorage.getItem('token')) {
-            console.log('SETTING TOKEN', localStorage.getItem('token'));
             setAuthToken(localStorage.getItem('token'));
         }
 
         try {
-            console.log('ATTEMPTING AUTH WITH TOKEN');
             const res = await axios.get('/api/auth');
-            console.log('AUTHED WITH TOKEN', res.data);
             dispatch({ type: USER_LOADED, payload: res.data });
         } catch (err) {
-            console.error(err);
             dispatch({ type: AUTH_ERROR });
         }
     }
@@ -61,10 +55,7 @@ const AuthState = props => {
                 type: REGISTER_SUCCESS,
                 payload: res.data
             });
-            setTimeout(function () {
-                console.log('loading user...');
-                loadUser();
-            }, 1000);
+            loadUser();
         } catch (err) {
             dispatch({
                 type: REGISTER_FAIL,
